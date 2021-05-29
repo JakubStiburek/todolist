@@ -22,12 +22,14 @@ const Task = ({ taskPreset, ...props }) => {
     setTaskDone(true)
   }
 
+  const handleDelete = () => {
+    alert("delete")
+  }
+
   const edit = () => {
     return (
       <div>
-        <form>
           <textarea id="task" name="task" rows="10" cols="50" onChange={handleTaskChange} value={task}/>
-        </form>
         <button onClick={handleEditDone}>Done</button>
       </div>
     )
@@ -57,11 +59,12 @@ const Task = ({ taskPreset, ...props }) => {
   }
 
   return (
-    <div>
+    <div className="task-card">
       {taskDone ? renderTaskDone() : renderTask()}
       {showEdit ? edit() : askEdit()}
+      <button onClick={handleDelete}>Delete</button>
     </div>
   )
 };
 
-export default Task
+export default Task;

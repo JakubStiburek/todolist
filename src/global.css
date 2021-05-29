@@ -3,11 +3,17 @@
   margin: auto;
 }
 
-.task-description {
-  border: none;
-  width: max-content;
-}
-
 .strike {
   text-decoration: line-through;
+}
+
+.task-card {
+  padding: 15px 10px 15px 10px;
+  background: #95ffba;
+  border-radius: 10px;
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.task-card p {
 }
