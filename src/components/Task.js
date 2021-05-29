@@ -22,10 +22,6 @@ const Task = ({ taskPreset, ...props }) => {
     setTaskDone(true)
   }
 
-  const handleDelete = () => {
-    alert("delete")
-  }
-
   const edit = () => {
     return (
       <div>
@@ -62,7 +58,6 @@ const Task = ({ taskPreset, ...props }) => {
     <div className="task-card">
       {taskDone ? renderTaskDone() : renderTask()}
       {showEdit ? edit() : askEdit()}
-      <button onClick={handleDelete}>Delete</button>
     </div>
   )
 };
