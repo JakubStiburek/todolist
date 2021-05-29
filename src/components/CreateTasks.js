@@ -7,9 +7,14 @@ const CreateTasks = () => {
   const [tasks, setTasks] = useState([]);
   const [makeNewTask, setMakeNewTask] = useState(false);
   const [taskCount, setTaskCount] = useState(0);
+  const [upTaskID, setUpTaskID] = useState(undefined)
 
   const  handleInputChange = (event) => {
     setInputValue(event.target.value)
+  }
+
+  const handleUp = (event) => {
+    setUpTaskID(event.target.id)
   }
 
   const pushTask = () => {
@@ -21,7 +26,12 @@ const CreateTasks = () => {
 
   const createTask = () => {
     return (
-      <li key={taskCount}><Task taskPreset={inputValue} /></li>
+      <li key={taskCount}>
+        <div className="task-card">
+          <Task taskPreset={inputValue} />
+          <button id={taskCount} onClick={handleUp}>Up</button>
+        </div>
+      </li>
     )
   }
 
@@ -38,6 +48,13 @@ const CreateTasks = () => {
     setTaskCount(tasks.length)
   }, [tasks.length])
 
+  const upTask = () => {
+   return tasks.find(task => task.key === upTaskID);
+  }
+
+  const otherTasks = () => {
+    return tasks.filter(task => task.key !== upTaskID);
+  }
 
   return (
     <div>
@@ -45,7 +62,8 @@ const CreateTasks = () => {
       <textarea id="createCard" name="createCard" value={inputValue} onChange={handleInputChange} placeholder="Enter task description"/>
       <button onClick={handleCreateTask}>Create task</button>
       <ul>
-        {tasks}
+        {upTask()}
+        {upTaskID ? otherTasks() : tasks}
       </ul>
     </div>
   )

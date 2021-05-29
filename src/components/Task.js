@@ -55,7 +55,7 @@ const Task = ({ taskPreset, ...props }) => {
   }
 
   return (
-    <div className="task-card">
+    <div>
       {taskDone ? renderTaskDone() : renderTask()}
       {showEdit ? edit() : askEdit()}
     </div>
