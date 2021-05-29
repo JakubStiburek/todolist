@@ -1,0 +1,13 @@
+.app-wrapper {
+  width: max-content;
+  margin: auto;
+}
+
+.task-description {
+  border: none;
+  width: max-content;
+}
+
+.strike {
+  text-decoration: line-through;
+}
