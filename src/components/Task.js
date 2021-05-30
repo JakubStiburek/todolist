@@ -2,18 +2,23 @@ import '../global.css';
 import {useState} from "react";
 
 const Task = ({ taskPreset, ...props }) => {
+  // store task data
   const [task, setTask] = useState(taskPreset)
+  // control if user can edit task
   const [showEdit, setShowEdit] = useState(false)
+  // manage task completion
   const [taskDone, setTaskDone] = useState(false)
 
   const handleEditClick = () => {
     setShowEdit(true)
   }
 
+  // save edit input
   const handleTaskChange = (event) => {
     setTask(event.target.value)
   }
 
+  // hide edit option if task is done
   const handleEditDone = () => {
     setShowEdit(false)
   }
@@ -31,7 +36,8 @@ const Task = ({ taskPreset, ...props }) => {
     )
   }
 
-  const askEdit = () => {
+  // if the task isn't done, user have the option to edit it
+  const allowEdit = () => {
     if (!taskDone) {
       return (
         <button onClick={handleEditClick}>Edit</button>
@@ -57,7 +63,7 @@ const Task = ({ taskPreset, ...props }) => {
   return (
     <div>
       {taskDone ? renderTaskDone() : renderTask()}
-      {showEdit ? edit() : askEdit()}
+      {showEdit ? edit() : allowEdit()}
     </div>
   )
 };
