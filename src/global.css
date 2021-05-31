@@ -1,6 +1,27 @@
 .app-wrapper {
   width: max-content;
   margin: auto;
+  text-align: center;
+}
+
+.new-card-input-field {
+  width: max-content;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.new-card-input-field label{
+  font-size: 30px;
+}
+
+.button {
+  background: #ffc345;
+}
+
+.button:hover {
+  background: #ffef48;
+  cursor: pointer;
 }
 
 .completed {
@@ -17,4 +38,29 @@
 
 .task-card {
   background: #95ffba;
+  margin: 5px;
+}
+
+.task-list {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.login {
+  margin-top: 150px;
+  text-align: left;
+}
+
+.login-form {
+  display: grid;
+  grid-template-columns: 100px 100px;
+}
+
+.edit {
+  width: 400px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
 }

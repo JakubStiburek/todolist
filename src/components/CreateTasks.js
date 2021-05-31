@@ -50,9 +50,9 @@ const CreateTasks = ({ userId, }) => {
 
     const editTodo = (todo) => {
       return (
-        <div>
+        <div className="edit">
           <textarea id="edit-todo" name="edit-todo" rows="10" cols="50" onChange={handleEditInputChange} value={editInputValue}/>
-          <button onClick={() => handleTodoEdited(todo.id)}>Done</button>
+          <button className="button" onClick={() => handleTodoEdited(todo.id)}>Done</button>
         </div>
       )
     }
@@ -121,9 +121,9 @@ const CreateTasks = ({ userId, }) => {
     return todos.map(todo =>
       <li key={todo.id} className="task-card">
         <Todo content={todo.title} completed={todo.completed}/>
-        <button onClick={() => handleTodoFinished(todo.id)}>Finish</button>
-        <button onClick={() => handleTodoGoTop(todo.id)}>TOP</button>
-        {todo.id === editableTodoId ? editTodo(todo) : <button onClick={() => handleEditTodo(todo)}>Edit</button>}
+        <button className="button" onClick={() => handleTodoFinished(todo.id)}>Finish</button>
+        <button className="button" onClick={() => handleTodoGoTop(todo.id)}>TOP</button>
+        {todo.id === editableTodoId ? editTodo(todo) : <button className="button" onClick={() => handleEditTodo(todo)}>Edit</button>}
       </li>
     )
   }
@@ -150,12 +150,12 @@ const CreateTasks = ({ userId, }) => {
   } else {
     return (
       <div>
-        <div>
+        <div className="new-card-input-field">
           <label htmlFor="createTask">New task</label>
           <textarea id="createTask" name="createTask" value={inputValue} onChange={handleInputChange} onKeyPress={handleEnterPress} placeholder="Enter task description"/>
-          <button onClick={handleAddTodo}>Create task</button>
+          <button className="button" onClick={handleAddTodo}>Create task</button>
         </div>
-        <ul>
+        <ul className="task-list">
           {renderTodos(todos)}
         </ul>
       </div>

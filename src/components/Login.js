@@ -40,9 +40,13 @@ const Login = ({checkLogin, identifyUser, }) => {
     setUserId(target[0].id)
   }
 
-  const handleLogin = () => {
-    (validateInputUser(user, users) && validateInputPassword(password)) ? setLoggedIn(true) : setLoggedIn(false);
+  const succesfuLogin = () => {
+    setLoggedIn(true);
     getUserId();
+  }
+
+  const handleLogin = () => {
+    (validateInputUser(user, users) && validateInputPassword(password)) ? succesfuLogin() : setLoggedIn(false);
   }
 
   useEffect(() => {
@@ -66,14 +70,14 @@ const Login = ({checkLogin, identifyUser, }) => {
     return <div>LOADING</div>
   } else {
     return (
-      <div>
-        <form>
+      <div className="login">
+        <form className="login-form">
           <label htmlFor="user">User name</label>
           <input type="text" id="user" name="user" onChange={handleInputUserChange} value={user} required/>
           <label htmlFor="password">Password</label>
           <input type="password" id="password" name="password" onChange={handleInputPasswordChange} value={password} required/>
-          <button onClick={handleLogin}>Log in</button>
         </form>
+        <button className="button" onClick={handleLogin}>Log in</button>
       </div>
     )
   }
