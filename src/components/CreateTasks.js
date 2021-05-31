@@ -8,6 +8,7 @@ const CreateTasks = ({ userId, }) => {
   const [editInputValue, setEditInputValue] = useState("")
   const [isLoaded, setIsLoaded] = useState(false);
   const [editableTodoId, setEditableTodoId] = useState(undefined);
+  const [topTodoId, setTopTodoId] = useState(undefined);
   const [error, setError] = useState(null);
   const [todos, setTodos] = useState([]);
 
@@ -17,9 +18,11 @@ const CreateTasks = ({ userId, }) => {
 
   const handleTodoFinished = (finishedTodoId) => {
     let finishedTodo = todos.find(t => t.id === finishedTodoId);
-    setTodos(todos.filter(t => t.id !== finishedTodoId));
     finishedTodo.completed = true;
-    setTodos([...todos, finishedTodo])
+    let index = todos.indexOf(finishedTodo);
+    let newTodos = todos;
+    newTodos[index] = finishedTodo;
+    setTodos([...newTodos])
   }
 
   //
@@ -36,9 +39,11 @@ const CreateTasks = ({ userId, }) => {
 
     const handleTodoEdited = (editedTodoId) => {
       let editedTodo = todos.find(t => t.id === editedTodoId);
-      setTodos(todos.filter(t => t.id === editableTodoId));
       editedTodo.title = editInputValue;
-      setTodos([...todos, editedTodo]);
+      let index = todos.indexOf(editedTodo)
+      let newTodos = todos;
+      newTodos[index] = editedTodo;
+      setTodos([...newTodos]);
       setInputValue("")
       setEditableTodoId(undefined)
     }
@@ -53,6 +58,22 @@ const CreateTasks = ({ userId, }) => {
     }
   //
   // Edit todos end
+  //
+
+  //
+  // Making todos go TOP
+  //
+  const handleTodoGoTop = (todoGoTopId) => {
+    setTopTodoId(todoGoTopId);
+  }
+
+  const arrangeTodos = () => {
+    let topTodo = todos.find(t => t.id === topTodoId);
+    let newTodos = todos.filter(t => t.id !== topTodoId);
+    setTodos([topTodo, ...newTodos]);
+  }
+  //
+  // Making todos go TOP end
   //
 
   //
@@ -90,11 +111,18 @@ const CreateTasks = ({ userId, }) => {
   // Making new todos end
   //
 
+  useEffect(() => {
+    if (topTodoId) {
+      arrangeTodos()
+    }
+  }, [topTodoId])
+
   const renderTodos = (todos) => {
     return todos.map(todo =>
       <li key={todo.id} className="task-card">
         <Todo content={todo.title} completed={todo.completed}/>
         <button onClick={() => handleTodoFinished(todo.id)}>Finish</button>
+        <button onClick={() => handleTodoGoTop(todo.id)}>TOP</button>
         {todo.id === editableTodoId ? editTodo(todo) : <button onClick={() => handleEditTodo(todo)}>Edit</button>}
       </li>
     )
