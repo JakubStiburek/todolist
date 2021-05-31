@@ -1,14 +1,14 @@
 import '../global.css';
 import {useEffect, useState} from "react";
 
-const Todo = ({ content, completed, id, }) => {
+const Todo = ({ content, completed, }) => {
   const [className, setClassName] = useState("task")
 
   useEffect(() => {
     completed ? setClassName("task completed") : setClassName("task")
   })
   return (
-    <li key={id} className={className}>{content}</li>
+    <p className={className}>{content}</p>
   )
 };
 
