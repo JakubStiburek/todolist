@@ -1,6 +1,6 @@
 import '../global.css'
 import {useEffect, useState} from "react";
-import Task from "./Task";
+import Todo from "./Todo";
 
 const CreateTasks = ({ userId, }) => {
   // store input data
@@ -8,10 +8,14 @@ const CreateTasks = ({ userId, }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [todos, setTodos] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [count, setCount] = useState(0)
 
   const filterTodos = (todos) => {
     return todos.filter(todo => todo.userId === userId);
+  }
+
+  const countTodos = (todos) => {
+    setCount(todos.length);
   }
 
   const  handleInputChange = (event) => {
@@ -22,10 +26,29 @@ const CreateTasks = ({ userId, }) => {
     setInputValue("")
   }
 
+  const makeTodo = (content) => {
+    return {
+      userId: userId,
+      id: count + 1,
+      title: content,
+      completed: false,
+    }
+  }
+
+  const handleAddTodo = () => {
+    setTodos([...todos, makeTodo(inputValue)]);
+  }
+
   // allow user to submit a new task using the enter instead of the Create task button
   const handleEnterPress = (event) => {
     if (event.key === "Enter"){
     }
+  }
+
+  const renderTodos = (todos) => {
+    return todos.map(todo =>
+      <Todo content={todo.title} completed={todo.completed} id={todo.id}/>
+    )
   }
 
   useEffect(() => {
@@ -35,6 +58,7 @@ const CreateTasks = ({ userId, }) => {
         (result) => {
           setIsLoaded(true);
           setTodos(filterTodos(result));
+          countTodos(todos)
         },
         (error) => {
           setIsLoaded(true);
@@ -43,8 +67,6 @@ const CreateTasks = ({ userId, }) => {
       )
   }, [])
 
-  console.log(todos)
-
   if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
@@ -52,9 +74,14 @@ const CreateTasks = ({ userId, }) => {
   } else {
     return (
       <div>
-        <label htmlFor="createTask">New task</label>
-        <textarea id="createTask" name="createTask" value={inputValue} onChange={handleInputChange} onKeyPress={handleEnterPress} placeholder="Enter task description"/>
-        <button>Create task</button>
+        <div>
+          <label htmlFor="createTask">New task</label>
+          <textarea id="createTask" name="createTask" value={inputValue} onChange={handleInputChange} onKeyPress={handleEnterPress} placeholder="Enter task description"/>
+          <button onClick={handleAddTodo}>Create task</button>
+        </div>
+        <ul>
+          {renderTodos(todos)}
+        </ul>
       </div>
     )
   }
