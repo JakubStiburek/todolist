@@ -3,11 +3,11 @@
   margin: auto;
 }
 
-.strike {
+.completed {
   text-decoration: line-through;
 }
 
-.task-card {
+.task {
   padding: 15px 10px 15px 10px;
   background: #95ffba;
   border-radius: 10px;

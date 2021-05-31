@@ -1,8 +1,9 @@
 import '../global.css';
 import {useEffect, useState} from "react";
 
-const Login = ({checkLogin, ...props}) => {
+const Login = ({checkLogin, identifyUser, }) => {
   const [user, setUser] = useState("")
+  const [userId, setUserId] = useState(null)
   const [password, setPassword] = useState("")
   const [users, setUsers] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
@@ -12,6 +13,10 @@ const Login = ({checkLogin, ...props}) => {
   useEffect(() => {
     checkLogin(loggedIn);
   }, [checkLogin, loggedIn])
+
+  useEffect(() => {
+    identifyUser(userId)
+  }, [identifyUser, userId])
 
   const handleInputUserChange = (event) => {
     setUser(event.target.value)
@@ -30,8 +35,14 @@ const Login = ({checkLogin, ...props}) => {
     return password === "password"
   }
 
+  const getUserId = () => {
+    let target = users.filter(u => u.username === user);
+    setUserId(target[0].id)
+  }
+
   const handleLogin = () => {
     (validateInputUser(user, users) && validateInputPassword(password)) ? setLoggedIn(true) : setLoggedIn(false);
+    getUserId();
   }
 
   useEffect(() => {

@@ -5,22 +5,27 @@ import {useState} from "react";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null)
 
   const checkLogin = (data) => {
     setLoggedIn(data);
   }
 
+  const identifyUser = (id) => {
+    setUserId(id)
+  }
+
   if (loggedIn) {
     return (
       <div className="app-wrapper">
-        <CreateTasks />
+        <CreateTasks userId={userId}/>
       </div>
     )
   }
   else {
     return (
         <div className="app-wrapper">
-          <Login checkLogin={checkLogin}/>
+          <Login checkLogin={checkLogin} identifyUser={identifyUser}/>
         </div>
       )
   }
